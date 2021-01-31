@@ -1,11 +1,9 @@
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QLabel
-
 from Helpers.image_helper import get_image_path
 
 
 class MoveableObject:
-
     def __init__(self, screen: QWidget, object_id: str, x: int = 0, y: int = 0,
                  img: str = '', width: int = 0, height: int = 0):
         self.object_id = object_id,
@@ -40,4 +38,3 @@ class MoveableObject:
     def show(self):
         self.isHidden = False
         self.label.show()
-

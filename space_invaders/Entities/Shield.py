@@ -1,11 +1,11 @@
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QLabel
-
 from Helpers.image_helper import get_image_path
 
 
 class Shield:
-    def __init__(self, screen: QWidget, shield_id: str, x: int, y: int, img: str, width: int, height: int, shield_protection: int):
+    def __init__(self, screen: QWidget, shield_id: str, x: int, y: int, img: str, width: int, height: int,
+                 shield_protection: int):
         self.shield_id = shield_id
         self.x = x
         self.y = y
@@ -38,9 +38,8 @@ class Shield:
         print("shiled protection u update_image")
         print(self.shield_protection)
 
-
         if self.shield_protection >= 6 and self.shield_protection <= 9:
-           pass
+            pass
         elif self.shield_protection >= 3 and self.shield_protection <= 5:
             self.changeLabelImage("../Sources/Images/Shields/two.png")
             self.label.show()

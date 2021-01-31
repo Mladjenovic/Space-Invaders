@@ -17,7 +17,7 @@ class SpaceshipWorkerThread(QThread):
 
     def run(self):
 
-        x = self.spaceship.x
+        y = self.spaceship.y
 
         while True:
             if y >= - 15:

@@ -1,5 +1,4 @@
 from PyQt5.QtWidgets import QWidget
-
 from Entities.MoveableObject import MoveableObject
 
 

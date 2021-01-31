@@ -1,5 +1,4 @@
 from PyQt5.QtWidgets import QWidget
-
 from Entities.MoveableObject import MoveableObject
 
 
@@ -10,11 +9,10 @@ class Spaceship(MoveableObject):
 
         super().__init__(screen=screen, object_id=spaceship_id, x=x, y=y,
                          img=img, width=width, height=height)
-
         self.spaceship_id = spaceship_id
         self.player_id = player_id
 
-    def move_left(self, screen):
+    def move_left(self):
         if self.x <= 0:
             pass
         else:

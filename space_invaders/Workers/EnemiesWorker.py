@@ -3,7 +3,6 @@ import time
 from PyQt5.QtCore import QThread, pyqtSignal
 
 
-
 class EnemiesWorkerThread(QThread):
     new_level = pyqtSignal(int)
     update_enemies_position = pyqtSignal(int, int)
@@ -23,15 +22,15 @@ class EnemiesWorkerThread(QThread):
                 if self.__can_move_down__(enemy, self.shields) is False:
                     all_can_move_down = False
             if all_can_move_down:
-                time.sleep(0.75)
+                time.sleep(0.75 - self.current_level * 0.03)
                 self.update_enemies_position.emit(10, 3)
-
 
     def __moving_left__(self, enemies):
         while True:
             if len(self.enemies) == 0:
                 print('PRAZNA LISTA')
                 new_level_num = self.current_level+1
+
                 self.new_level.emit(new_level_num)
 
             all_can_move_left = True
@@ -40,8 +39,8 @@ class EnemiesWorkerThread(QThread):
                     all_can_move_left = False
                     self.__move_down__(self.enemies)
             if all_can_move_left:
-                time.sleep(0.75)
-                self.update_enemies_position.emit(-10, 0)
+                time.sleep(0.75 - self.current_level * 0.03)
+                self.update_enemies_position.emit(-10 - int(round(self.current_level / 2)), 0)
             else:
                 break
 
@@ -49,10 +48,8 @@ class EnemiesWorkerThread(QThread):
 
         while True:
             if len(self.enemies) == 0:
-                print('PRAZNA LISTA')
                 new_level_num = self.current_level + 1
                 self.new_level.emit(new_level_num)
-
 
             all_can_move_right = True
             for enemy in enemies:
@@ -60,8 +57,8 @@ class EnemiesWorkerThread(QThread):
                     all_can_move_right = False
 
             if all_can_move_right:
-                time.sleep(0.75)
-                self.update_enemies_position.emit(10, 0)
+                time.sleep(0.75 - self.current_level * 0.03)
+                self.update_enemies_position.emit(10 + int(round(self.current_level / 2)), 0)
             else:
                 break
 
@@ -101,14 +98,11 @@ class EnemiesWorkerThread(QThread):
         """
         self.is_done = True
         self.enemies.clear()
+
+
         self.finished_enemies_moving_signal.emit()
 
     def run(self):
         while not self.is_done:
-
             self.__moving_left__(self.enemies)
-
             self.__moving_right__(self.enemies)
-
-
-

@@ -6,7 +6,6 @@ from Factories.BulletFactory import BulletFactory
 class KeyHandler:
     def __init__(self):
         super().__init__()
-        print('1')
 
     @staticmethod
     def handle_key(screen, event, spaceship):

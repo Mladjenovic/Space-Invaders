@@ -18,6 +18,3 @@ class Player:
     def increase_score(self, earned_points: int):
         self.score += earned_points
         self.update_players_status()
-
-
-

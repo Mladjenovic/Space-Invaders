@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QLabel, QWidget
-from Entities import Enemy, Bullet, Heart, Spaceship, Shield
+from Entities import Spaceship
+
 
 class Storage:
 

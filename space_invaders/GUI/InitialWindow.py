@@ -1,3 +1,4 @@
+from GUI.MultiplayerMenu import MultiplayerMenu
 from Helpers.image_helper import get_image_path
 
 from PyQt5 import QtWidgets
@@ -5,6 +6,7 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
 from GUI.SinglePlayer import SinglePlayer
+from GUI.Tournament import Tournament
 
 import sys
 from Styles.ButtonStyles import button_style
@@ -16,6 +18,7 @@ class InitialWindow(QMainWindow):
         self.setGeometry(200, 200, 1000, 600)
         self.setFixedSize(1000, 600)
         self.setWindowTitle("Menu")
+        self.multiplayers = []
 
         self.init_UI()
 
@@ -35,10 +38,18 @@ class InitialWindow(QMainWindow):
         self.multiplayer_button.setText("Multiplayer")
         self.multiplayer_button.setGeometry(400, 200, 250, 50)
         self.multiplayer_button.setStyleSheet(button_style)
+        self.multiplayer_button.clicked.connect(self.on_mutliplayer_button)
+
+        self.tournament_button = QtWidgets.QPushButton(self)
+        self.tournament_button.setText("Tournament")
+        self.tournament_button.setGeometry(400, 300, 250, 50)
+        self.tournament_button.setStyleSheet(button_style)
+        self.tournament_button.clicked.connect(self.on_tournament_button)
+        self.dialog2 = Tournament()
 
         self.exit_button = QtWidgets.QPushButton(self)
         self.exit_button.setText("Exit")
-        self.exit_button.setGeometry(400, 300, 250, 50)
+        self.exit_button.setGeometry(400, 400, 250, 50)
         self.exit_button.setStyleSheet(button_style)
         self.exit_button.clicked.connect(self.exit)
 
@@ -57,6 +68,14 @@ class InitialWindow(QMainWindow):
     def on_singleplayer_button(self):
         self.hide()
         self.dialog.show()
+
+    def on_mutliplayer_button(self):
+        self.multiplayers.append(MultiplayerMenu())
+        self.multiplayers[-1].show()
+
+    def on_tournament_button(self):
+        self.hide()
+        self.dialog2.show()
 
 
 def display_menu():

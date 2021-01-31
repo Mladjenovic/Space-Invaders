@@ -1,4 +1,3 @@
-from Helpers.image_helper import get_image_path
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QMainWindow, QLineEdit, QMessageBox
@@ -57,21 +56,3 @@ class SinglePlayer(QMainWindow):
              self.game_loop = GameLoop(self.player_username_input.text())
              self.game_loop.show()
              self.hide()
-
-#             start_singleplayer_process(self, self.player_username_input.text())
-#             self.hide()
-#
-#             self.player_username_input.setText("")
-#
-#
-# def start_singleplayer_process(self, player_username):
-#     process = Process(target=start_singleplayer_process_method, args=[player_username])
-#     process.daemon = True
-#     process.start()
-#
-#
-# def start_singleplayer_process_method(player_username):
-#     app = QApplication(sys.argv)
-#     game_loop = GameLoop(player_username)
-#     game_loop.show()
-#     sys.exit(app.exec_())

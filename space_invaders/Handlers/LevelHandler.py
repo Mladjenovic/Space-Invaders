@@ -1,14 +1,12 @@
 from PyQt5.QtWidgets import QLabel, QWidget
 
-from Workers.BulletWorker import BulletWorkerThread
-from Workers.EnemiesWorker import EnemiesWorkerThread
-from Workers.KeyNotifier import KeyNotifierWorker
-from Workers.BulletEnemyWorker import BulletEnemyWorkerThread
-
 from Factories.EnemyFactory import EnemyFactory
 from Factories.HeartFactory import HeartFactory
 from Factories.ShieldFactory import ShieldFactory
-from Factories.SpaceshipFactory import SpaceshipFactory
+from Workers.BulletEnemyWorker import BulletEnemyWorkerThread
+from Workers.EnemiesWorker import EnemiesWorkerThread
+from Workers.KeyNotifier import KeyNotifierWorker
+
 
 class LevelHandler:
 
@@ -26,7 +24,6 @@ class LevelHandler:
         self.enemiesWorker = enemiesWorker
         self.bulletEnemyWorker = bulletEnemyWorker
         self.newbulletEnemyWorker = newbulletEnemyWorker
-
 
     def create_new_level(current_level: int):
 
@@ -54,34 +51,21 @@ class LevelHandler:
             self.enemy_bullets = []
             self.set_shields(self.screen)
 
-        # self.keyNotifierWorker.die()
-        # self.bulletEnemyWorker.abort_enemy_shooting_thread()
-        # self.enemiesWorker.abort_thread()
-        # self.newbulletEnemyWorker.abort_enemy_shooting_thread()
-
-
-
-        #keyNotifierWorker = KeyNotifierWorker()
         self.keyNotifierWorker.start()
         self.keyNotifierWorker.key_signal.connect(self.screen.moveSpaceship)
         self.keyNotifierWorker.finished_signal.connect(self.screen.finishedWithMoveSpaceshipThread)
 
-        #enemiesWorker = EnemiesWorkerThread(self.enemies, self.shields)
+        # enemiesWorker = EnemiesWorkerThread(self.enemies, self.shields)
         self.enemiesWorker.start()
         self.enemiesWorker.finished_enemies_moving_signal.connect(self.screen.finishedWithEnemiesWorker)
         self.enemiesWorker.update_enemies_position.connect(self.screen.moveEnemies)
         self.enemiesWorker.new_level.connect(self.create_new_level)
 
-        # testiranje
-
-        #self.bulletEnemyWorker = BulletEnemyWorkerThread(self.screen, self.enemies, self.enemy_bullets)
         self.bulletEnemyWorker.start()
         self.bulletEnemyWorker.finish_enemy_shooting.connect(self.screen.finishedWithEnemyBulletWorker)
         self.bulletEnemyWorker.update_enemy_bullet.connect(self.screen.updateEnemiesBullet)
 
-        #self.newbulletEnemyWorker = BulletEnemyWorkerThread(self.screen, self.enemies, self.enemy_bullets)
         self.newbulletEnemyWorker.start()
-        # self.newbulletEnemyWorker.finish_enemy_shooting.connect(self.finishedWithEnemyBulletWorkerHelper)
         self.newbulletEnemyWorker.update_enemy_bullet.connect(self.screen.updateEnemiesBulletHelper)
 
     def set_hearts(self, screen: QWidget):
@@ -121,7 +105,6 @@ class LevelHandler:
                 self.enemies.append(enemy)
 
         return self.enemies
-
 
     def set_statusbar(self, screen: QWidget):
         screen.status_label = QLabel(screen)
